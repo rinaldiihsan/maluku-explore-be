@@ -1,7 +1,11 @@
-const UserController = {}
-const bcrypt = require("bcrypt")
+const {Op} = require("sequelize")
 const { User } = require("../models")
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
+const dotenv = require("dotenv")
 
+dotenv.config()
+const UserController = {}
 /*
     this is auto generate example, you can continue
 
@@ -18,16 +22,79 @@ UserController.register = async(req, res) => {
     const saltRounds = 10; // panjang salt
     const generateSalt = await bcrypt.genSalt(saltRounds); // generat salt
     const hashPassword = await bcrypt.hash(password, generateSalt) // hash salt
-
-    const createUser = await User.create({
-        namaLengkap: namaLengkap,
-        email: email,
-        password: hashPassword,
-        passwordSalt: generateSalt
-    })
-    return res.status(201).json({
-        message: "user berhasil dibuat!"
-    })
+    try {
+        const createUser = await User.create({
+            namaLengkap: namaLengkap,
+            email: email,
+            password: hashPassword,
+            passwordSalt: generateSalt
+        })
+        return res.status(201).json({
+            data: {
+            message: "user berhasil dibuat!"
+            }
+        })
+    } catch (error) {
+        return res.status(404).json({
+            data: {
+            message: error.message
+            }
+        })
+    }
 }
+
+UserController.login = async(req,res) => {
+    try {
+        const {email,password} = req.body
+        const findUser = await User.findOne({
+            where : {
+                email : {
+                    [Op.like] : `%${email}%`
+                }
+            }
+        })
+        const comparePassword = await bcrypt.compare(password,findUser.password)
+        if (comparePassword) {
+            const payloadToken = {
+                id : findUser.id,
+                email : findUser.email,
+                userName : findUser.userName
+            }
+            const token = jwt.sign(payloadToken, process.env.PRIVITE_KEY,{
+                algorithm : 'HS256',
+                expiresIn : '1h'
+            })
+            return res.status(200).json({
+                data : {
+                    message : "Berhasil Login !",
+                    token : token
+                }
+            })
+        }else {
+            return res.status(401).json({
+                data : {
+                    message : "Gagal login, UserName dan Password Salah !",
+                }
+            })
+        }
+    } catch (error) {
+        if (error instanceof jwt.JsonWebTokenError) {
+            return res.status(401).json({
+                data : {
+                    message : "Gagal Login !",
+                    token : error.message
+                }
+            })
+        }else {
+            return res.status(401).json({
+                data : {
+                    message : "Gagal Login !",
+                    token : error.message
+                }
+            })
+        }
+    }
+}
+
 
 module.exports = UserController
