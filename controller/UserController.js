@@ -17,31 +17,6 @@ UserController.index = async(req, res) => {
     })
 }
 
-UserController.register = async(req, res) => {
-    const { namaLengkap, email, password } = req.body
-    const saltRounds = 10; // panjang salt
-    const generateSalt = await bcrypt.genSalt(saltRounds); // generat salt
-    const hashPassword = await bcrypt.hash(password, generateSalt) // hash salt
-    try {
-        const createUser = await User.create({
-            namaLengkap: namaLengkap,
-            email: email,
-            password: hashPassword,
-            passwordSalt: generateSalt
-        })
-        return res.status(201).json({
-            data: {
-            message: "user berhasil dibuat!"
-            }
-        })
-    } catch (error) {
-        return res.status(404).json({
-            data: {
-            message: error.message
-            }
-        })
-    }
-}
 
 UserController.login = async(req,res) => {
     try {
@@ -60,7 +35,7 @@ UserController.login = async(req,res) => {
                 email : findUser.email,
                 userName : findUser.userName
             }
-            const token = jwt.sign(payloadToken, process.env.PRIVITE_KEY,{
+            const token = jwt.sign(payloadToken, process.env.PRIVATE_KEY,{
                 algorithm : 'HS256',
                 expiresIn : '1h'
             })
@@ -97,4 +72,29 @@ UserController.login = async(req,res) => {
 }
 
 
+UserController.register = async(req, res) => {
+    const { namaLengkap, email, password } = req.body
+    const saltRounds = 10; // panjang salt
+    const generateSalt = await bcrypt.genSalt(saltRounds); // generat salt
+    const hashPassword = await bcrypt.hash(password, generateSalt) // hash salt
+    try {
+        const createUser = await User.create({
+            namaLengkap: namaLengkap,
+            email: email,
+            password: hashPassword,
+            passwordSalt: generateSalt
+        })
+        return res.status(201).json({
+            data: {
+            message: "user berhasil dibuat!"
+            }
+        })
+    } catch (error) {
+        return res.status(404).json({
+            data: {
+            message: error.message
+            }
+        })
+    }
+}
 module.exports = UserController
