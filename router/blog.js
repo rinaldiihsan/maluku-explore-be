@@ -4,6 +4,6 @@ const routeBlog = express.Router();
 
 
 routeBlog.post('/create', blogController.create);
-routeBlog.delete('/delete',blogController.delete)
+routeBlog.delete('/delete/:id',blogController.delete)
 
 module.exports = routeBlog;

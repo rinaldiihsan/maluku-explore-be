@@ -1,6 +1,7 @@
 const {Blog} = require("../models")
 
 const blogController = {}
+const blogUserController = {}
 
 /*
     this is auto generate example, you can continue 
