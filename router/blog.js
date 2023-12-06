@@ -1,5 +1,10 @@
 const express = require("express");
+<<<<<<< HEAD
 const blogController = require("../controller/BlogController");
+=======
+const blogController = require("../controller/blogController");
+
+>>>>>>> c86f7c804bcfc46b640364823dc3a3ca909bb9f7
 const routeBlog = express.Router();
 
 const multer = require('multer');
