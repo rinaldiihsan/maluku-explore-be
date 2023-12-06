@@ -1,4 +1,6 @@
 const { Blog } = require("../models")
+const { validationResult } = require('express-validator');
+
 
 const blogController = {}
 
@@ -42,22 +44,29 @@ blogController.getById = async(req, res) => {
 }
 
 blogController.create = async(req, res) => {
-    const { title, body, image } = req.body
-    try {
-        const createBlog = await Blog.create({
-            title: title,
-            body: body,
-            image: image
-        })
-        return res.status(201).json({
-            message: 'Data Berhasil Ditambahkan !'
-        })
-    } catch (error) {
-        return res.status(500).json({
+    console.log(req.file)
+        // const { title, body } = req.body
+        // const { image } = req.file.path;
+        // try {
+        //     let post = await model.Blog.create({
+        //             title: req.body.title,
+        //             body: req.body.body,
+        //             image: req.file.path
+        //         })
+        //         // const createBlog = await Blog.create({
+        //         //     title: title,
+        //         //     body: body,
+        //         //     image: image
+        //         // })
+        //     return res.status(201).json({
+        //         message: 'Data Berhasil Ditambahkan !'
+        //     })
+        // } catch (error) {
+        //     return res.status(500).json({
 
-            message: error
-        })
-    }
+    //         message: error
+    //     })
+    // }
 }
 
 blogController.update = async(req, res) => {
@@ -111,6 +120,7 @@ blogController.delete = async(req, res) => {
         })
     }
 }
+
 
 
 module.exports = blogController

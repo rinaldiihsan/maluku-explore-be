@@ -4,6 +4,8 @@ const routeUser = require('./user');
 const routeBlog = require('./blog');
 const route = express.Router();
 
+
+
 route.get('/', exampleController.index);
 route.use('/auth', routeUser);
 route.use('/blog', routeBlog);
