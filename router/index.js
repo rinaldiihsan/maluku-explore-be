@@ -8,6 +8,8 @@ const route = express.Router();
 route.get('/', exampleController.index);
 route.use('/auth', routeUser);
 route.use('/blog', routeBlog);
-route.use('/image', routerImageBlog);
+route.use('/imageBlog', routerImageBlog);
+
+
 
 module.exports = route;
