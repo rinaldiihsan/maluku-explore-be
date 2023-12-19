@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       body: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       imageId: {
         type: Sequelize.INTEGER,
