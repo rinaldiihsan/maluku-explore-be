@@ -40,7 +40,7 @@ UserController.login = async (req, res) => {
       });
       const refreshToken = jwt.sign(payloadToken, process.env.REFRESH_KEY, {
         algorithm: 'HS256',
-        expiresIn: '1d',
+        expiresIn: '1h',
       });
       await User.update(
         { refreshToken: refreshToken },
