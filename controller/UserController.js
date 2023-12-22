@@ -86,7 +86,7 @@ UserController.login = async (req, res) => {
 };
 
 UserController.register = async (req, res) => {
-  const { namaLengkap, email, password } = req.body;
+  const { namaLengkap, email, password, deskripsi } = req.body;
   const saltRounds = 10;
   const generateSalt = await bcrypt.genSalt(saltRounds);
   const hashPassword = await bcrypt.hash(password, generateSalt);
@@ -94,6 +94,7 @@ UserController.register = async (req, res) => {
     const createUser = await User.create({
       namaLengkap: namaLengkap,
       email: email,
+      deskripsi: deskripsi,
       password: hashPassword,
       passwordSalt: generateSalt,
     });
@@ -114,7 +115,7 @@ UserController.register = async (req, res) => {
 UserController.getAllUser = async (req, res) => {
   try {
     const getAllUser = await User.findAll({
-      attributes: ['id', 'namaLengkap', 'email'],
+      attributes: ['id', 'namaLengkap', 'email', 'deskripsi'],
     });
     return res.status(200).json({
       data: {

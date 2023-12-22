@@ -44,8 +44,15 @@ imagesTourController.getById = async (req, res) => {
 };
 
 imagesTourController.create = async (req, res) => {
-  const imagePath = req.file.path;
   try {
+    if (!req.file) {
+      return res.status(400).json({
+        message: 'Berkas tidak ditemukan dalam permintaan.',
+      });
+    }
+
+    const imagePath = req.file.path;
+
     const createImageTour = await imagesTour.create({
       image: imagePath,
     });

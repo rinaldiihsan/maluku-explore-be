@@ -15,6 +15,9 @@ module.exports = {
       namaLengkap: {
         type: Sequelize.STRING,
       },
+      deskripsi: {
+        type: Sequelize.TEXT,
+      },
       password: {
         type: Sequelize.STRING,
       },
