@@ -51,7 +51,6 @@ TourController.create = async(req, res) => {
             deskripsi: deskripsi,
             imageId: imageId,
         });
-
         return res.status(201).json({
             message: 'Data Berhasil Ditambahkan!',
         });
@@ -113,5 +112,8 @@ TourController.delete = async(req, res) => {
         });
     }
 };
+
+
+
 
 module.exports = TourController
