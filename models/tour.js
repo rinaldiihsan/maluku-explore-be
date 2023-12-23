@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'imageId',
       });
       tour.hasMany(models.Order, { foreignKey: 'tempatWisataId' });
+      tour.hasMany(models.orderHistory, { foreignKey: 'TempatWisataId' });
     }
   }
   tour.init(

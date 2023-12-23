@@ -1,47 +1,52 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Order extends Model {
+  class orderHistory extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      Order.belongsTo(models.User, {
-        foreignKey: 'userId',
+      orderHistory.belongsTo(models.User, {
+        foreignKey: 'UserId',
       });
-      Order.belongsTo(models.tour, {
-        foreignKey: 'tempatWisataId',
+      orderHistory.belongsTo(models.tour, {
+        foreignKey: 'TempatWisataId',
       });
-      Order.hasMany(models.orderHistory, { foreignKey: 'OrderId' });
+      orderHistory.belongsTo(models.Order, {
+        foreignKey: 'OrderId',
+      });
     }
   }
-  Order.init(
+  orderHistory.init(
     {
       UserId: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'User',
+          model: 'Users',
           key: 'id',
         },
       },
       TempatWisataId: {
         type: DataTypes.INTEGER,
         references: {
-          model: 'tour',
+          model: 'tours',
           key: 'id',
         },
       },
-      jumlahTiket: DataTypes.INTEGER,
-      tanggalOrder: DataTypes.DATE,
-      totalHarga: DataTypes.INTEGER,
+      OrderId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Orders',
+          key: 'id',
+        },
+      },
     },
     {
       sequelize,
-      modelName: 'Order',
+      modelName: 'orderHistory',
     }
   );
-  return Order;
+  return orderHistory;
 };

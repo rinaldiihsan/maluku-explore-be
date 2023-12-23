@@ -44,33 +44,33 @@ OrderController.getById = async (req, res) => {
 };
 
 OrderController.create = async (req, res) => {
-  const { userId, tempatWisataId, jumlahTiket, tanggalOrder, totalHarga } = req.body;
+  const { UserId, TempatWisataId, jumlahTiket, tanggalOrder, totalHarga } = req.body;
   try {
     const getUserId = await User.findOne({
       where: {
-        id: userId,
+        id: UserId,
       },
     });
     const getTempatWisataId = await tour.findOne({
       where: {
-        id: tempatWisataId,
+        id: TempatWisataId,
       },
     });
     if (getUserId === null) {
-      throw Error('data tidak ditemukan');
+      throw Error('data user tidak ditemukan!');
     }
     if (getTempatWisataId === null) {
-      throw Error('data tidak ditemukan');
+      throw Error('data tempat wisata tidak ditemukan!');
     } else {
       const createOrder = await Order.create({
-        userId: getUserId.id,
-        tempatWisataId: getTempatWisataId.id,
+        UserId: getUserId.id,
+        TempatWisataId: getTempatWisataId.id,
         jumlahTiket: jumlahTiket,
         tanggalOrder: tanggalOrder,
         totalHarga: totalHarga,
       });
       return res.status(200).json({
-        message: 'data berhasil ditambahkan',
+        message: 'data berhasil ditambahkan!',
       });
     }
   } catch (err) {
@@ -81,7 +81,7 @@ OrderController.create = async (req, res) => {
 };
 
 OrderController.update = async (req, res) => {
-  const { userId, tempatWisataId, jumlahTiket, tanggalOrder, totalHarga } = req.body;
+  const { UserId, TempatWisataId, jumlahTiket, tanggalOrder, totalHarga } = req.body;
   const { id } = req.params;
   try {
     const getDetailOrder = await Order.findOne({
@@ -96,8 +96,8 @@ OrderController.update = async (req, res) => {
     }
     const updateOrder = await Order.update(
       {
-        userId: userId,
-        tempatWisataId: tempatWisataId,
+        UserId: UserId,
+        TempatWisataId: TempatWisataId,
         jumlahTiket: jumlahTiket,
         tanggalOrder: tanggalOrder,
         totalHarga: totalHarga,
@@ -109,7 +109,7 @@ OrderController.update = async (req, res) => {
       }
     );
     return res.status(200).json({
-      message: 'data berhasil diubah',
+      message: 'data berhasil diubah!',
     });
   } catch (err) {
     return res.status(500).json({
