@@ -18,6 +18,9 @@ module.exports = {
       deskripsi: {
         type: Sequelize.TEXT,
       },
+      role: {
+        type: Sequelize.STRING,
+      },
       password: {
         type: Sequelize.STRING,
       },

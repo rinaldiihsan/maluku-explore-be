@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       tour.belongsTo(models.imagesTour, {
         foreignKey: 'imageId',
       });
-      tour.hasMany(models.Order, { foreignKey: 'tempatWisataId' });
+      tour.hasMany(models.Order, { foreignKey: 'TempatWisataId' });
       tour.hasMany(models.orderHistory, { foreignKey: 'TempatWisataId' });
     }
   }

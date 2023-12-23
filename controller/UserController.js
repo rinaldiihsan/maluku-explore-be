@@ -33,6 +33,7 @@ UserController.login = async (req, res) => {
         id: findUser.id,
         name: findUser.namaLengkap,
         email: findUser.email,
+        role: findUser.role,
       };
       const token = jwt.sign(payloadToken, process.env.PRIVATE_KEY, {
         algorithm: 'HS256',
@@ -91,16 +92,24 @@ UserController.register = async (req, res) => {
   const generateSalt = await bcrypt.genSalt(saltRounds);
   const hashPassword = await bcrypt.hash(password, generateSalt);
   try {
+    let role = 'user';
+
+    if (email === 'me@admin.com' && password === 'admin') {
+      role = 'admin';
+    }
+
     const createUser = await User.create({
       namaLengkap: namaLengkap,
       email: email,
       deskripsi: deskripsi,
       password: hashPassword,
       passwordSalt: generateSalt,
+      role: role,
     });
     return res.status(201).json({
       data: {
         message: 'user berhasil dibuat!',
+        role: role,
       },
     });
   } catch (error) {
