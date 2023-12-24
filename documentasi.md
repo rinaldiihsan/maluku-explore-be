@@ -1,8 +1,6 @@
-# Simpel API Doumentation Web Maluku-Explore
+# API Doumentation Web Maluku-Explore
 
-Dokumentasi ini berisi tentang informasi yang anda butuhkan untuk berinteraksi dengan API Website Maluku-Explorer. Anda akan
-menemukan daftar lengkap dari endpoint yang tersedia beserta detail dari permintaan dan respons yang diharapkan. Gunakan dokumentasi ini sebagai
-paduan anda untuk mengintergrasikan dan menguji API Web Maluku-Explore.
+Dokumentasi ini berisi tentang informasi yang anda butuhkan untuk berinteraksi dengan API Web Maluku-Explore. Anda akan menemukan daftar lengkap dari end-point yang tersedia beserta detail dari permintaan dan respons yang diharapkan. Gunakan dokumentasi ini sebagai paduan anda untuk mengintergrasikan dan menguji API Web Maluku-Explore.
 
 ---
 
@@ -140,7 +138,7 @@ localhost:3000/blog/get/:id
 ```
 localhost:3000/blog/update/:id
 ```
-- Deskripsi : Permintaan ini digunakan dalam memperbarui Blog yang sudah ada, berdasarkan id Blog tersebut.
+- Deskripsi : Permintaan ini digunakan dalam memperbaharui Blog yang sudah ada, berdasarkan id Blog tersebut.
 - Metode : PUT
 - Contoh Request :
 ```
@@ -275,7 +273,7 @@ localhost:3000/order/update/:id
 ```
 localhost:3000/order/delete/:id
 ```
-- Deskripsi : Permintaan ini digunakan dalam menghapus data Order yang sudah ada berdasarkan dari Id Order Tersebut.
+- Deskripsi : Permintaan ini digunakan dalam menghapus data Order yang sudah ada berdasarkan dari Id Order tersebut.
 - Metode : DELETE
 - Contoh Response :
 ```
@@ -304,7 +302,7 @@ localhost:3000/imageTour/create/
 ```
 {
     "data": {
-        "message": "Data berhasil ditambahkan!"
+        "message": "Gambar berhasil ditambahkan!"
     }
 }
 ```
@@ -490,7 +488,7 @@ localhost:3000/Tour/delete/:id
 }
 ```
 ## Order History
-Section ini berisi permintaan terkait dengan data pemesanan tiket pelanggan mulai dari waktu tanggal order, dan jumlah tiket yang di beli.
+Section ini berisi permintaan terkait dengan data pemesanan tiket pelanggan, mulai dari waktu tanggal order, dan jumlah tiket yang di beli.
 ### Create-orderHistory
 ```
 localhost:3000/orderHistory/create/
