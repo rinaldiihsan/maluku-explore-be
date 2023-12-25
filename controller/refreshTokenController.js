@@ -25,8 +25,9 @@ const resfreshToken = async (req, res) => {
 
       const payloadToken = {
         id: users[0].id,
-        name: users[0].namaLengkap,
+        namaLengkap: users[0].namaLengkap,
         email: users[0].email,
+        deskripsi: users[0].deskripsi,
       };
 
       const accessToken = jwt.sign(payloadToken, process.env.PRIVATE_KEY, {
