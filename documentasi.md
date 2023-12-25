@@ -481,10 +481,8 @@ localhost:3000/Tour/delete/:id
 - Metode : DELETE
 - Contoh Response delete-Tour :
 ```
-{
-    "data": {
+ {
         "message" : "Data Berhasil dihapus!"
-    }
 }
 ```
 ## Order History
