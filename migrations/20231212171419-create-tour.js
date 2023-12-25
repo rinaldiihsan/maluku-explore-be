@@ -15,8 +15,11 @@ module.exports = {
       kota: {
         type: Sequelize.STRING,
       },
+      harga : {
+        type: Sequelize.INTEGER,
+      },
       deskripsi: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       imageId: {
         type: Sequelize.INTEGER,

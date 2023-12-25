@@ -2,25 +2,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('blogs', {
+    await queryInterface.createTable('Orders', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
-        type: Sequelize.STRING,
-      },
-      body: {
-        type: Sequelize.TEXT,
-      },
-      imageId: {
+      UserId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'imagesBlogs',
+          model: 'Users',
           key: 'id',
         },
+      },
+      TempatWisataId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'tours',
+          key: 'id',
+        },
+      },
+      jumlahTiket: {
+        type: Sequelize.INTEGER,
+      },
+      tanggalOrder: {
+        type: Sequelize.DATE,
+      },
+      totalHarga: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +43,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('blogs');
+    await queryInterface.dropTable('Orders');
   },
 };

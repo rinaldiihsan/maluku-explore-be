@@ -2,6 +2,7 @@ const express = require('express');
 const imagesTourController = require('../controller/imagesTourController');
 const multer = require('multer');
 
+
 const routeImageTour = express.Router();
 
 const storage = multer.diskStorage({
@@ -28,6 +29,7 @@ const upload = multer({
 
 routeImageTour.get('/get', imagesTourController.getAll);
 routeImageTour.get('/get/:id', imagesTourController.getById);
+routeImageTour.get('/get-image/:id', imagesTourController.getImageById);
 routeImageTour.post('/create', upload.single('image'), imagesTourController.create);
 routeImageTour.put('/update/:id', upload.single('image'), imagesTourController.update);
 routeImageTour.delete('/delete/:id', imagesTourController.delete);

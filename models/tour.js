@@ -11,13 +11,16 @@ module.exports = (sequelize, DataTypes) => {
       tour.belongsTo(models.imagesTour, {
         foreignKey: 'imageId',
       });
+      tour.hasMany(models.Order, { foreignKey: 'TempatWisataId' });
+      tour.hasMany(models.orderHistory, { foreignKey: 'TempatWisataId' });
     }
   }
   tour.init(
     {
       nama: DataTypes.STRING,
       kota: DataTypes.STRING,
-      deskripsi: DataTypes.STRING,
+      harga: DataTypes.INTEGER,
+      deskripsi: DataTypes.TEXT,
       imageId: {
         type: DataTypes.INTEGER,
         references: {

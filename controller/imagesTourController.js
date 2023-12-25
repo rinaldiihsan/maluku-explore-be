@@ -1,5 +1,6 @@
 const { imagesTour } = require('../models');
 const imagesTourController = {};
+const path = require('path');
 
 /*
     this is auto generate example, you can continue 
@@ -43,8 +44,15 @@ imagesTourController.getById = async (req, res) => {
 };
 
 imagesTourController.create = async (req, res) => {
-  const imagePath = req.file.path;
   try {
+    if (!req.file) {
+      return res.status(400).json({
+        message: 'Berkas tidak ditemukan dalam permintaan.',
+      });
+    }
+
+    const imagePath = req.file.path;
+
     const createImageTour = await imagesTour.create({
       image: imagePath,
     });
@@ -52,6 +60,31 @@ imagesTourController.create = async (req, res) => {
     return res.status(201).json({
       message: 'Gambar Berhasil Ditambahkan!',
     });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+imagesTourController.getImageById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const image = await imagesTour.findOne({
+      attributes: ['image'],
+      where: {
+        id: id,
+      },
+    });
+
+    if (!image) {
+      return res.status(404).json({
+        message: 'Image not found',
+      });
+    }
+
+    const imagePath = path.join(__dirname, '..', image.image);
+    return res.sendFile(imagePath);
   } catch (error) {
     return res.status(500).json({
       message: error.message,

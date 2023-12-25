@@ -28,6 +28,7 @@ const upload = multer({
 
 routerImageBlog.get('/get', imagesBlogController.getAll);
 routerImageBlog.get('/get/:id', imagesBlogController.getById);
+routerImageBlog.get('/get-image/:id', imagesBlogController.getImageById);
 routerImageBlog.post('/create', upload.single('image'), imagesBlogController.create);
 routerImageBlog.put('/update/:id', upload.single('image'), imagesBlogController.update);
 routerImageBlog.delete('/delete/:id', imagesBlogController.delete);
